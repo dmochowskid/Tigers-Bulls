@@ -10,12 +10,32 @@
         <ImageBrush ImageSource="obrazki/background.jpg" Stretch="UniformToFill" />
     </Window.Background>
     <Window.Resources>
+        <SolidColorBrush x:Key="GreenBrush" Color="Green" Opacity=".5"/>
+        <SolidColorBrush x:Key="YellowBrush" Color="#FFACAC2F" Opacity=".5"/>
+        <SolidColorBrush x:Key="RedBrush" Color="Red" Opacity=".5"/>
         <DataTemplate x:Key="DataTemplate_Level2">
             <Border BorderBrush="Green" BorderThickness="1">
                 <Button Click="Field_Click">
                     <Button.Template>
                         <ControlTemplate>
-                            <Image Source="{Binding Image}" />
+                            <Grid>
+                                <Grid.Style>
+                                    <Style TargetType="{x:Type Grid}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Active}" Value="0">
+                                                <Setter Property="Background" Value="{StaticResource GreenBrush}"></Setter>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Active}" Value="1">
+                                                <Setter Property="Background" Value="{StaticResource YellowBrush}"></Setter>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Active}" Value="2">
+                                                <Setter Property="Background" Value="{StaticResource RedBrush}"></Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Style>
+                                <Image Source="{Binding Image}"/>
+                            </Grid>
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
@@ -34,9 +54,6 @@
     </Window.Resources>
     <Viewbox>
         <Grid>
-            <Grid.Background>
-                <SolidColorBrush Color="Green" Opacity="0.5" />
-            </Grid.Background>
             <ItemsControl x:Name="itemControlBoard" ItemTemplate="{DynamicResource DataTemplate_Level1}"/>
         </Grid>
     </Viewbox>

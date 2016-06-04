@@ -29,19 +29,24 @@ namespace Tygrysy_i_Byki
             board = new Board();
             itemControlBoard.ItemsSource = board.fields;
 
-            startGame();
+            resetGame();
         }
 
         private Board board;
+        private bool predatorRound;
 
-        private void startGame()
+        private void resetGame()
         {
+            predatorRound = true;
             board.resetBoard();
         }
 
         private void Field_Click(object sender, RoutedEventArgs e)
         {
-            board.setField(0, 0, 0);
+            Button clicked = sender as Button;
+            Field field = clicked.DataContext as Field;
+            if (board.action(field.x, field.y, predatorRound) == true)
+                predatorRound = !predatorRound;
         }
     }
 }

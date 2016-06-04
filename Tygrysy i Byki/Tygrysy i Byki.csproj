@@ -64,13 +64,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Board.cs" />
+    <Compile Include="Field.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MyImage.cs" />
+    <Compile Include="Point.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -142,9 +143,6 @@
     <Resource Include="obrazki\tiger.png" />
     <Resource Include="obrazki\turkey.png" />
     <Resource Include="obrazki\turtle.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="fakeAnimal.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="obrazki\emptyImage.png" />

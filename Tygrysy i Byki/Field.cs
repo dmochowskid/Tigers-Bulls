@@ -9,10 +9,16 @@ using System.Windows.Media;
 
 namespace Tygrysy_i_Byki
 {
-    class MyImage : INotifyPropertyChanged
+    enum FieldState
+    {
+        Normal,
+        Move,
+        Attack
+    }
+
+    class Field : INotifyPropertyChanged
     {
         private ImageSource image;
-
         public ImageSource Image
         {
             get
@@ -24,6 +30,30 @@ namespace Tygrysy_i_Byki
                 image = value;
                 OnPropertyChanged("Image");
             }
+        }
+        
+        private FieldState active;
+        public FieldState Active
+        {
+            get
+            {
+                return active;
+            }
+            set
+            {
+                active = value;
+                OnPropertyChanged("Active");
+            }
+        }
+
+        public int x { get; set; }
+        public int y { get; set; }
+
+        public Field(ImageSource image, int x, int y)
+        {
+            this.image = image;
+            this.x = x;
+            this.y = y;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
