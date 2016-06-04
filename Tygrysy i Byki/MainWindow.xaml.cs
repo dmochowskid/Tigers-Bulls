@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,45 +26,22 @@ namespace Tygrysy_i_Byki
         {
             InitializeComponent();
 
-
-            ImageSource imageSource = new BitmapImage(new Uri("obrazki/byk.png", UriKind.Relative));
-            image00.Source = imageSource;
+            board = new Board();
+            itemControlBoard.ItemsSource = board.fields;
 
             startGame();
         }
 
-
+        private Board board;
 
         private void startGame()
         {
-            MyImage myImage = new MyImage();
-            myImage.image = new BitmapImage(new Uri("obrazki/byk.png", UriKind.Relative));
-            image00.DataContext = myImage;
-            image01.DataContext = myImage;
-            image10.DataContext = myImage;
-            image11.DataContext = myImage;
-            image20.DataContext = myImage;
-            image21.DataContext = myImage;
-            image30.DataContext = myImage;
-            image31.DataContext = myImage;
-            image33.DataContext = myImage;
-            image32.DataContext = myImage;
-
-            MyImage myImage2 = new MyImage();
-            myImage2.image = new BitmapImage(new Uri("obrazki/tygrys.png", UriKind.Relative));
-            image14.DataContext = myImage2;
-            image24.DataContext = myImage2;
+            board.resetBoard();
         }
 
-        private void Label_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Field_Click(object sender, RoutedEventArgs e)
         {
-            image30.DataContext = null;
+            board.setField(0, 0, 0);
         }
     }
-
-    class MyImage
-    {
-        public ImageSource image { get; set; }
-    }
-    
 }

@@ -5,88 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tygrysy_i_Byki"
         mc:Ignorable="d"
-        Title="Tygrysy i Byki" Height="350" Width="525">
+        Title="Tygrysy i Byki" Height="500" Width="750">
     <Window.Background>
-        <ImageBrush ImageSource="obrazki/tło.jpg" Stretch="UniformToFill" />
+        <ImageBrush ImageSource="obrazki/background.jpg" Stretch="UniformToFill" />
     </Window.Background>
+    <Window.Resources>
+        <DataTemplate x:Key="DataTemplate_Level2">
+            <Border BorderBrush="Green" BorderThickness="1">
+                <Button Click="Field_Click">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image Source="{Binding Image}" />
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplate_Level1">
+            <ItemsControl ItemsSource="{Binding}" ItemTemplate="{DynamicResource DataTemplate_Level2}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </DataTemplate>
+
+    </Window.Resources>
     <Viewbox>
         <Grid>
             <Grid.Background>
                 <SolidColorBrush Color="Green" Opacity="0.5" />
             </Grid.Background>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <Border Grid.Column="0" Grid.Row="0" BorderBrush="LightGreen" BorderThickness="1">
-                <Image Name="image00" Source="{Binding image}"/>
-            </Border>
-            <Border Grid.Column="0" Grid.Row="1" BorderBrush="LightGreen" BorderThickness="1">
-                <Image Name="image01" Source="{Binding image}"/>
-            </Border>
-            <Border Grid.Column="0" Grid.Row="2" BorderBrush="LightGreen" BorderThickness="1">
-                <Image Name="image02" Source="{Binding image}"/>
-            </Border>
-            <Border Grid.Column="0" Grid.Row="3" BorderBrush="LightGreen" BorderThickness="1">
-                <Image Name="image03" Source="{Binding image}"/>
-            </Border>
-            <Border Grid.Column="0" Grid.Row="4" BorderBrush="LightGreen" BorderThickness="1">
-                <Image Name="image04" Source="{Binding image}"/>
-            </Border>
-            <Border Grid.Column="1" Grid.Row="0" BorderBrush="LightGreen" BorderThickness="1">
-                <Image Name="image10" Source="{Binding image}"/>
-            </Border>
-            <Border Grid.Column="1" Grid.Row="1" BorderBrush="LightGreen" BorderThickness="1">
-                <Image Name="image11" Source="{Binding image}"/>
-            </Border>
-            <Border Grid.Column="1" Grid.Row="2" BorderBrush="LightGreen" BorderThickness="1">
-                <Image Name="image12" Source="{Binding image}"/>
-            </Border>
-            <Border Grid.Column="1" Grid.Row="3" BorderBrush="LightGreen" BorderThickness="1">
-                <Image Name="image13" Source="{Binding image}"/>
-            </Border>
-            <Border Grid.Column="1" Grid.Row="4" BorderBrush="LightGreen" BorderThickness="1">
-                <Image Name="image14" Source="{Binding image}"/>
-            </Border>
-            <Border Grid.Column="2" Grid.Row="0" BorderBrush="LightGreen" BorderThickness="1">
-                <Image Name="image20" Source="{Binding image}"/>
-            </Border>
-            <Border Grid.Column="2" Grid.Row="1" BorderBrush="LightGreen" BorderThickness="1">
-                <Image Name="image21" Source="{Binding image}"/>
-            </Border>
-            <Border Grid.Column="2" Grid.Row="2" BorderBrush="LightGreen" BorderThickness="1">
-                <Image Name="image22" Source="{Binding image}"/>
-            </Border>
-            <Border Grid.Column="2" Grid.Row="3" BorderBrush="LightGreen" BorderThickness="1">
-                <Image Name="image23" Source="{Binding image}"/>
-            </Border>
-            <Border Grid.Column="2" Grid.Row="4" BorderBrush="LightGreen" BorderThickness="1">
-                <Image Name="image24" Source="{Binding image}"/>
-            </Border>
-            <Border Grid.Column="3" Grid.Row="0" BorderBrush="LightGreen" BorderThickness="1">
-                <Image Name="image30" Source="{Binding image}"/>
-            </Border>
-            <Border Grid.Column="3" Grid.Row="1" BorderBrush="LightGreen" BorderThickness="1">
-                <Image Name="image31" Source="{Binding image}"/>
-            </Border>
-            <Border Grid.Column="3" Grid.Row="2" BorderBrush="LightGreen" BorderThickness="1">
-                <Image Name="image32" Source="{Binding image}"/>
-            </Border>
-            <Border Grid.Column="3" Grid.Row="3" BorderBrush="LightGreen" BorderThickness="1">
-                <Image Name="image33" Source="{Binding image}"/>
-            </Border>
-            <Border Grid.Column="3" Grid.Row="4" BorderBrush="LightGreen" BorderThickness="1">
-                <Image Name="image34" Source="{Binding image}"/>
-            </Border>
+            <ItemsControl x:Name="itemControlBoard" ItemTemplate="{DynamicResource DataTemplate_Level1}"/>
         </Grid>
     </Viewbox>
 </Window>

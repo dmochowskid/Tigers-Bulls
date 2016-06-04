@@ -63,12 +63,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Board.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MyImage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -96,7 +98,56 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="obrazki\tło.jpg" />
+    <Resource Include="obrazki\alligator.png" />
+    <Resource Include="obrazki\ant.png" />
+    <Resource Include="obrazki\background.jpg" />
+    <Resource Include="obrazki\bat.png" />
+    <Resource Include="obrazki\bear.png" />
+    <Resource Include="obrazki\bee.png" />
+    <Resource Include="obrazki\bird.png" />
+    <Resource Include="obrazki\bull.png" />
+    <Resource Include="obrazki\bulldog.png" />
+    <Resource Include="obrazki\butterfly.png" />
+    <Resource Include="obrazki\cat.png" />
+    <Resource Include="obrazki\chicken.png" />
+    <Resource Include="obrazki\cow.png" />
+    <Resource Include="obrazki\crab.png" />
+    <Resource Include="obrazki\crocodile.png" />
+    <Resource Include="obrazki\deer.png" />
+    <Resource Include="obrazki\dog.png" />
+    <Resource Include="obrazki\donkey.png" />
+    <Resource Include="obrazki\duck.png" />
+    <Resource Include="obrazki\eagle.png" />
+    <Resource Include="obrazki\elephant.png" />
+    <Resource Include="obrazki\fox.png" />
+    <Resource Include="obrazki\frog.png" />
+    <Resource Include="obrazki\giraffe.png" />
+    <Resource Include="obrazki\gorilla.png" />
+    <Resource Include="obrazki\hippo.png" />
+    <Resource Include="obrazki\horse.png" />
+    <Resource Include="obrazki\insect.png" />
+    <Resource Include="obrazki\lion.png" />
+    <Resource Include="obrazki\monkey.png" />
+    <Resource Include="obrazki\moose.png" />
+    <Resource Include="obrazki\mouse.png" />
+    <Resource Include="obrazki\owl.png" />
+    <Resource Include="obrazki\panda.png" />
+    <Resource Include="obrazki\penguin.png" />
+    <Resource Include="obrazki\pig.png" />
+    <Resource Include="obrazki\rabbit.png" />
+    <Resource Include="obrazki\rhino.png" />
+    <Resource Include="obrazki\rooster.png" />
+    <Resource Include="obrazki\sheep.png" />
+    <Resource Include="obrazki\snake.png" />
+    <Resource Include="obrazki\tiger.png" />
+    <Resource Include="obrazki\turkey.png" />
+    <Resource Include="obrazki\turtle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="fakeAnimal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="obrazki\emptyImage.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
