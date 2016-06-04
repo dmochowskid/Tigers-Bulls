@@ -15,7 +15,7 @@ namespace Tygrysy_i_Byki
         public Board()
         {
             fields = new ObservableCollection<ObservableCollection<Field>>();
-            for(int i = 0; i < BOARD_HIGHT; i++)
+            for (int i = 0; i < BOARD_HIGHT; i++)
             {
                 fields.Add(new ObservableCollection<Field>());
                 for (int j = 0; j < BOARD_WIDTH; j++)
@@ -24,22 +24,22 @@ namespace Tygrysy_i_Byki
 
             activeFields = new Stack<Point>();
             activeAnimal = new Point(-1, -1);
-            
+
             predatorImage = new BitmapImage(new Uri("obrazki/tiger.png", UriKind.Relative));
             herbivoreImage = new BitmapImage(new Uri("obrazki/bull.png", UriKind.Relative));
             emptyImage = new BitmapImage(new Uri("obrazki/emptyImage.png", UriKind.Relative));
-            
+
         }
 
-        private const int BOARD_WIDTH = 4;
-        private const int BOARD_HIGHT = 5;
+        public const int BOARD_WIDTH = 4;
+        public const int BOARD_HIGHT = 5;
 
         public ObservableCollection<ObservableCollection<Field>> fields { get; private set; }
         private ImageSource predatorImage;
-        private ImageSource herbivoreImage;
+        public ImageSource herbivoreImage;
         private ImageSource emptyImage;
-        private Point activeAnimal; // Jezeli aktywnt to wskazuje na pozycje na planszy
-                                    // w.p.p. (-1, x)
+        public Point activeAnimal; // Jezeli aktywnt to wskazuje na pozycje na planszy
+                                   // w.p.p. (-1, x)
         private Stack<Point> activeFields;
 
         public void resetBoard()
@@ -74,13 +74,25 @@ namespace Tygrysy_i_Byki
                     j.Active = FieldState.Normal;
         }
 
+        public int herbivoreCount()
+        {
+            int result = 0;
+
+            foreach (var i in fields)
+                foreach (var j in i)
+                    if (j.Image == herbivoreImage)
+                        result++;
+
+            return result;
+        }
+
         private void changeStateOfField(int x, int y, FieldState fieldState)
         {
             fields[x][y].Active = fieldState;
             activeFields.Push(new Point(x, y));
         }
 
-        private void colorFieldsToMove(int x, int y, bool isPredator)
+        public void colorFieldsToMove(int x, int y, bool isPredator)
         {
             //   ===========>
             //  ||         Y
@@ -88,7 +100,7 @@ namespace Tygrysy_i_Byki
             //  ||
             //  || X
             //  \/
-            
+
             changeStateOfField(x, y, FieldState.Move);
             activeAnimal.X = x; activeAnimal.Y = y;
 
@@ -111,34 +123,42 @@ namespace Tygrysy_i_Byki
             {
                 changeStateOfField(x - 1, y, FieldState.Move);
                 if (isPredator == true && x - 2 >= 0 && fields[x - 2][y].Image == herbivoreImage)
-                    changeStateOfField(x - 2, y , FieldState.Attack);
+                    changeStateOfField(x - 2, y, FieldState.Attack);
             }
             // Down
-            if (x + 1 < BOARD_HIGHT  && fields[x + 1][y].Image == emptyImage)
+            if (x + 1 < BOARD_HIGHT && fields[x + 1][y].Image == emptyImage)
             {
                 changeStateOfField(x + 1, y, FieldState.Move);
                 if (isPredator == true && x + 2 < BOARD_HIGHT && fields[x + 2][y].Image == herbivoreImage)
-                    changeStateOfField(x + 2, y , FieldState.Attack);
+                    changeStateOfField(x + 2, y, FieldState.Attack);
             }
         }
 
-        private void clearColorFieldsToMove()
+        public void clearColorFieldsToMove()
         {
-            while(activeFields.Count > 0)
+            while (activeFields.Count > 0)
             {
                 Point p = activeFields.Pop();
                 fields[p.X][p.Y].Active = FieldState.Normal;
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="predatorRound"></param>
+        /// <returns>true - wykonal ruch</returns>
         public bool action(int x, int y, bool predatorRound)
         {
             // Przesuniecie
-            if(activeAnimal.X != -1 && fields[x][y].Active != FieldState.Normal && (activeAnimal.X != x || activeAnimal.Y != y))
+            if (activeAnimal.X != -1 && fields[x][y].Active != FieldState.Normal && (activeAnimal.X != x || activeAnimal.Y != y))
             {
                 clearColorFieldsToMove();
                 fields[activeAnimal.X][activeAnimal.Y].Image = emptyImage;
                 fields[x][y].Image = predatorRound ? predatorImage : herbivoreImage;
+                activeAnimal.X = -1;
                 return true;
             }
 
@@ -155,7 +175,7 @@ namespace Tygrysy_i_Byki
                     colorFieldsToMove(x, y, true);
                 }
             }
-            else if(fields[x][y].Image == herbivoreImage && predatorRound == false)
+            else if (fields[x][y].Image == herbivoreImage && predatorRound == false)
             {
                 if (activeAnimal.X == x && activeAnimal.Y == y) // Ten sam (odznacz)
                 {
@@ -184,11 +204,14 @@ namespace Tygrysy_i_Byki
         {
             switch (value)
             {
-                case 0: fields[x][y].Image = emptyImage;
+                case 0:
+                    fields[x][y].Image = emptyImage;
                     break;
-                case 1: fields[x][y].Image = predatorImage;
+                case 1:
+                    fields[x][y].Image = predatorImage;
                     break;
-                case 2: fields[x][y].Image = herbivoreImage;
+                case 2:
+                    fields[x][y].Image = herbivoreImage;
                     break;
                 default:
                     throw new ArgumentException();

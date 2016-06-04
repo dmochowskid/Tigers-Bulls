@@ -65,6 +65,7 @@
     </Compile>
     <Compile Include="Board.cs" />
     <Compile Include="Field.cs" />
+    <Compile Include="Game.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
