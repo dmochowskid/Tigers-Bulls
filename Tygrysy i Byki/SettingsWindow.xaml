@@ -32,6 +32,5 @@
                 <Label x:Name="lPlayerVsPlayer" Content="Gracz vs Gracz" HorizontalAlignment="Left" Height="27" Margin="66,47,0,0" VerticalAlignment="Top" Width="92"/>
             </Grid>
         </Border>
-
     </Grid>
 </Window>

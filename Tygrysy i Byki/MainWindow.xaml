@@ -51,15 +51,22 @@
             </ItemsControl>
         </DataTemplate>
     </Window.Resources>
-    <DockPanel>
-        <Menu DockPanel.Dock="Top">
-            <MenuItem Header="New Game" Click="MainMenu_NewGame" />
-            <MenuItem Header="Ustawienia" Click="MainMenu_Ustawienia" />
-        </Menu>
-        <Viewbox>
-            <Grid>
-                <ItemsControl x:Name="itemControlBoard" ItemTemplate="{DynamicResource DataTemplate_Level1}"/>
+    <Grid>
+        <Canvas>
+            <Grid Background="Green" Width="150" Height="150" Canvas.Top="40" Canvas.Right="20">
+                <Label Content="Ilość:" />
             </Grid>
-        </Viewbox>
-    </DockPanel>
+        </Canvas>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="New Game" Click="MainMenu_NewGame" />
+                <MenuItem Header="Ustawienia" Click="MainMenu_Ustawienia" />
+            </Menu>
+            <Viewbox>
+                <Grid>
+                    <ItemsControl x:Name="itemControlBoard" ItemTemplate="{DynamicResource DataTemplate_Level1}"/>
+                </Grid>
+            </Viewbox>
+        </DockPanel>
+    </Grid>
 </Window>
