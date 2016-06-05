@@ -16,6 +16,13 @@ namespace Tygrysy_i_Byki
         Attack
     }
 
+    enum FieldType
+    {
+        Herbivore,
+        Predator,
+        Empty
+    }
+
     class Field : INotifyPropertyChanged
     {
         private ImageSource image;
@@ -46,12 +53,14 @@ namespace Tygrysy_i_Byki
             }
         }
 
+        public FieldType fieldType;
+
         public int x { get; set; }
         public int y { get; set; }
 
         public Field(ImageSource image, int x, int y)
         {
-            this.image = image;
+            this.Image = image;
             this.x = x;
             this.y = y;
         }

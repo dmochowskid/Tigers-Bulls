@@ -12,36 +12,45 @@ namespace Tygrysy_i_Byki
         public Game()
         {
             board = new Board();
+            settingWindow = SettingsWindow.getInstance();
             resetGame();
         }
 
         public Board board { get; set; }
+        private SettingsWindow settingWindow;
         private bool predatorRound;
-        private bool withComputer;
 
-        private void resetGame()
+        public void resetGame()
         {
             predatorRound = true;
-            withComputer = true;
             board.resetBoard();
         }
 
         private void endGame(bool predatorWins, int moves)
         {
-            MessageBox.Show((predatorWins ? "Tygrysy" : "Byki") + " wygraly w " + moves + " ruchach", "Gratulacje", MessageBoxButton.OK);
+            MessageBox.Show((predatorWins ? "Drapieżniki" : "Roślinożercy") + " wygraly w " + moves + " ruchach", "Gratulacje", MessageBoxButton.OK);
             resetGame();
         }
 
         public void action(int x, int y)
         {
-            if(board.action(x, y, predatorRound) == true)
+            if (board.action(x, y, predatorRound) == true)
                 predatorRound = !predatorRound;
 
-            if (board.herbivoreCount() <= 2)
-                endGame(true, 0);
-
-            if (predatorRound == false && withComputer == true)
+            if (predatorRound == false && settingWindow.withComputer == true)
                 comupterMove();
+
+            ifEndGame();
+        }
+
+        private void ifEndGame()
+        {
+            if (predatorRound == true)
+                if (board.predatorCanMove() == false)
+                    endGame(false, 0);
+           else
+                if (board.herbivoreCount() <= 2)
+                    endGame(true, 0);
         }
 
         private void comupterMove()
@@ -58,7 +67,7 @@ namespace Tygrysy_i_Byki
                     chosenX = rand.Next(Board.BOARD_HIGHT);
                     chosenY = rand.Next(Board.BOARD_WIDTH);
 
-                    if (board.fields[chosenX][chosenY].Image == board.herbivoreImage)
+                    if (board.fields[chosenX][chosenY].Image == settingWindow.EmptyImage)
                         break;
                 }
                 

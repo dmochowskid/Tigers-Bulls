@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tygrysy_i_Byki"
-        mc:Ignorable="d"
+        mc:Ignorable="d" Closed="MainWindow_closed"
         Title="Tygrysy i Byki" Height="500" Width="750">
     <Window.Background>
         <ImageBrush ImageSource="obrazki/background.jpg" Stretch="UniformToFill" />
@@ -50,11 +50,16 @@
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
         </DataTemplate>
-
     </Window.Resources>
-    <Viewbox>
-        <Grid>
-            <ItemsControl x:Name="itemControlBoard" ItemTemplate="{DynamicResource DataTemplate_Level1}"/>
-        </Grid>
-    </Viewbox>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="New Game" Click="MainMenu_NewGame" />
+            <MenuItem Header="Ustawienia" Click="MainMenu_Ustawienia" />
+        </Menu>
+        <Viewbox>
+            <Grid>
+                <ItemsControl x:Name="itemControlBoard" ItemTemplate="{DynamicResource DataTemplate_Level1}"/>
+            </Grid>
+        </Viewbox>
+    </DockPanel>
 </Window>

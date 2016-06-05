@@ -27,17 +27,35 @@ namespace Tygrysy_i_Byki
             InitializeComponent();
 
             game = new Game();
+            settingsWindow = SettingsWindow.getInstance();
             
             itemControlBoard.ItemsSource = game.board.fields;
         }
 
         private Game game;
-        
+        private SettingsWindow settingsWindow;
+
         private void Field_Click(object sender, RoutedEventArgs e)
         {
             Button clicked = sender as Button;
             Field field = clicked.DataContext as Field;
             game.action(field.x, field.y);
+        }
+
+        private void MainMenu_NewGame(object sender, RoutedEventArgs e)
+        {
+            game.resetGame();
+        }
+
+        private void MainMenu_Ustawienia(object sender, RoutedEventArgs e)
+        {
+            settingsWindow.ShowDialog();
+            game.board.refreshImages();
+        }
+
+        private void MainWindow_closed(object sender, EventArgs e)
+        {
+            settingsWindow.Close();
         }
     }
 }
