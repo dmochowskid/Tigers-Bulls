@@ -67,7 +67,8 @@ namespace Tygrysy_i_Byki
             // Gracz
             if (board.action(x, y, predatorRound) == true)
             {
-                ifEndGame();
+                if (ifEndGame() == true)
+                    return;
                 changeRound();
             }
 
@@ -75,17 +76,25 @@ namespace Tygrysy_i_Byki
             if (settingWindow.withComputer == true && predatorRound == false)
             {
                 computer.move();
-                ifEndGame();
+                if (ifEndGame() == true)
+                    return;
                 changeRound();
             }
         }
 
-        private void ifEndGame()
+        private bool ifEndGame()
         {
             if (board.predatorCanMove() == false)
+            {
                 endGame(false, Counter);
+                return true;
+            }
             if (board.herbivoreCount() <= 2)
+            {
                 endGame(true, Counter);
+                return true;
+            }
+            return false;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -77,6 +77,16 @@ namespace Tygrysy_i_Byki
                 }
         }
 
+        public List<Point> herbivoresPosition()
+        {
+            List<Point> herbivoresPosition = new List<Point>(); ;
+            for (int i = 0; i < fields.Count; i++)
+                for (int j = 0; j < fields[i].Count; j++)
+                    if (fields[i][j].Image == SettingsWindow.getInstance().HerbivoreImage)
+                        herbivoresPosition.Add(new Point(i, j));
+            return herbivoresPosition;
+        }
+
         internal void refreshImages()
         {
             foreach (var i in fields)
@@ -158,6 +168,16 @@ namespace Tygrysy_i_Byki
             }
         }
 
+        public List<Point> predatorsPosition()
+        {
+            List<Point> predatorsPosition = new List<Point>(); ;
+            for (int i = 0; i < fields.Count; i++)
+                for (int j = 0; j < fields[i].Count; j++)
+                    if (fields[i][j].Image == SettingsWindow.getInstance().PredatorImage)
+                        predatorsPosition.Add(new Point(i, j));
+            return predatorsPosition;
+        }
+
         public bool predatorCanMove()
         {
             for (int i = 0; i < fields.Count; i++)
@@ -189,6 +209,8 @@ namespace Tygrysy_i_Byki
         /// <returns>true - wykonal ruch</returns>
         public bool action(int x, int y, bool predatorRound)
         {
+            if (x < 0 || x >= BOARD_HIGHT || y < 0 || y >= BOARD_WIDTH)
+                return false;
             // Przesuniecie
             if (activeAnimal.X != -1 && fields[x][y].Active != FieldState.Normal && (activeAnimal.X != x || activeAnimal.Y != y))
             {
