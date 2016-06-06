@@ -1,28 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Tygrysy_i_Byki
 {
-    class Game
+    class Game : INotifyPropertyChanged
     {
-        public Game()
+        public Game(Image minCurrentPlayer)
         {
             board = new Board();
             settingWindow = SettingsWindow.getInstance();
+            this.minCurrentPlayer = minCurrentPlayer;
             resetGame();
         }
 
         public Board board { get; set; }
+        private Image minCurrentPlayer;
         private SettingsWindow settingWindow;
         private bool predatorRound;
+        
+        private int counter;
+        public int Counter
+        {
+            get
+            {
+                return counter / 2;
+            }
+            set
+            {
+                counter = value;
+                OnPropertyChanged("Counter");
+            }
+        }
 
         public void resetGame()
         {
             predatorRound = true;
+            minCurrentPlayer.DataContext = settingWindow.PredatorImage;
+            Counter = 0;
             board.resetBoard();
         }
 
@@ -32,10 +53,17 @@ namespace Tygrysy_i_Byki
             resetGame();
         }
 
+        private void changeRound()
+        {
+            predatorRound = !predatorRound;
+            minCurrentPlayer.DataContext = (predatorRound) ? settingWindow.PredatorImage : settingWindow.HerbivoreImage;
+            Counter = counter + 1;
+        }
+
         public void action(int x, int y)
         {
             if (board.action(x, y, predatorRound) == true)
-                predatorRound = !predatorRound;
+                changeRound();
 
             if (predatorRound == false && settingWindow.withComputer == true)
                 comupterMove();
@@ -83,12 +111,23 @@ namespace Tygrysy_i_Byki
                     board.action(chosenX + x, chosenY + y, false) == true)
                 {
                     board.activeAnimal.X = -1;
-                    predatorRound = !predatorRound;
+                    changeRound();
                     return;
                 }
 
                 board.clearColorFieldsToMove();
                 board.activeAnimal.X = -1;
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string name = "")
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(name));
             }
         }
     }

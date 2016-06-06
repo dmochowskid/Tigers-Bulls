@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tygrysy_i_Byki"
-        mc:Ignorable="d" Closed="MainWindow_closed"
-        Title="Tygrysy i Byki" Height="500" Width="750">
+        mc:Ignorable="d" Closed="MainWindow_closed" SizeChanged="Window_SizeChanged"
+        Title="Tygrysy i Byki" Height="700" Width="1050">
     <Window.Background>
         <ImageBrush ImageSource="obrazki/background.jpg" Stretch="UniformToFill" />
     </Window.Background>
@@ -52,14 +52,26 @@
         </DataTemplate>
     </Window.Resources>
     <Grid>
-        <Canvas>
-            <Grid Background="Green" Width="150" Height="150" Canvas.Top="40" Canvas.Right="20">
-                <Label Content="Ilość:" />
+        <Canvas Name="canvas">
+            <Grid Name="gPoints" Width="200" Height="150" Canvas.Top="40" Canvas.Right="20">
+                <Grid.Background>
+                    <SolidColorBrush Color="Green" Opacity=".5" />
+                </Grid.Background>
+                <Border BorderBrush="Green" BorderThickness="5">
+                    <Grid>
+                        <Label Name="lMove" Content="Ruchy:" Margin="10,16,0,0" FontSize="24" />
+                        <Label Name="lPoints" Content="{Binding Counter}" Margin="132,16,0,0" FontSize="24"/>
+                        <Label Name="lRound" Content="Tura:" Margin="13,79,0,0" FontSize="24" RenderTransformOrigin="0.68,1.625"/>
+                        <Grid Height="64" Width="64" Margin="112,69,0,0">
+                            <Image Name="iAnimalRound" Source="{Binding}"/>
+                        </Grid>
+                    </Grid>
+                </Border>
             </Grid>
         </Canvas>
         <DockPanel>
             <Menu DockPanel.Dock="Top">
-                <MenuItem Header="New Game" Click="MainMenu_NewGame" />
+                <MenuItem Header="Nowa Gra" Click="MainMenu_NewGame" />
                 <MenuItem Header="Ustawienia" Click="MainMenu_Ustawienia" />
             </Menu>
             <Viewbox>

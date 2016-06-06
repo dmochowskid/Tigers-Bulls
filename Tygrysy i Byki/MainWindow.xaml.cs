@@ -26,9 +26,10 @@ namespace Tygrysy_i_Byki
         {
             InitializeComponent();
 
-            game = new Game();
+            game = new Game(iAnimalRound);
             settingsWindow = SettingsWindow.getInstance();
-            
+
+            lPoints.DataContext = game;
             itemControlBoard.ItemsSource = game.board.fields;
         }
 
@@ -56,6 +57,14 @@ namespace Tygrysy_i_Byki
         private void MainWindow_closed(object sender, EventArgs e)
         {
             settingsWindow.Close();
+        }
+        
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            gPoints.Width = Math.Min(200, canvas.ActualWidth - Canvas.GetRight(gPoints));
+            
+            if(canvas.ActualHeight > 40)
+                gPoints.Height = Math.Min(150, canvas.ActualHeight - Canvas.GetTop(gPoints));
         }
     }
 }
