@@ -17,14 +17,16 @@ namespace Tygrysy_i_Byki
             board = new Board();
             settingWindow = SettingsWindow.getInstance();
             this.minCurrentPlayer = minCurrentPlayer;
+            computer = new Computer(board);
             resetGame();
         }
 
         public Board board { get; set; }
         private Image minCurrentPlayer;
         private SettingsWindow settingWindow;
+        private Computer computer;
         private bool predatorRound;
-        
+
         private int counter;
         public int Counter
         {
@@ -62,62 +64,28 @@ namespace Tygrysy_i_Byki
 
         public void action(int x, int y)
         {
+            // Gracz
             if (board.action(x, y, predatorRound) == true)
+            {
+                ifEndGame();
                 changeRound();
+            }
 
-            if (predatorRound == false && settingWindow.withComputer == true)
-                comupterMove();
-
-            ifEndGame();
+            // Komputer
+            if (settingWindow.withComputer == true && predatorRound == false)
+            {
+                computer.move();
+                ifEndGame();
+                changeRound();
+            }
         }
 
         private void ifEndGame()
         {
-            if (predatorRound == true)
-                if (board.predatorCanMove() == false)
-                    endGame(false, 0);
-           else
-                if (board.herbivoreCount() <= 2)
-                    endGame(true, 0);
-        }
-
-        private void comupterMove()
-        {
-            Random rand = new Random();
-            int chosenX = -1;
-            int chosenY = -1;
-
-            while (true)
-            {
-                // Znalezienie zwierzaka
-                while (true)
-                {
-                    chosenX = rand.Next(Board.BOARD_HIGHT);
-                    chosenY = rand.Next(Board.BOARD_WIDTH);
-
-                    if (board.fields[chosenX][chosenY].Image == settingWindow.EmptyImage)
-                        break;
-                }
-                
-                board.colorFieldsToMove(chosenX, chosenY, false);
-
-                // Wykonanie ruchu
-                int x = rand.Next(3) - 1;
-                int y = 0;
-                while (x == 0 && y == 0)
-                    y = rand.Next(3) - 1;
-                if (0 <= chosenX + x && chosenX + x < Board.BOARD_HIGHT &&
-                    0 <= chosenY + y && chosenY + y < Board.BOARD_WIDTH &&
-                    board.action(chosenX + x, chosenY + y, false) == true)
-                {
-                    board.activeAnimal.X = -1;
-                    changeRound();
-                    return;
-                }
-
-                board.clearColorFieldsToMove();
-                board.activeAnimal.X = -1;
-            }
+            if (board.predatorCanMove() == false)
+                endGame(false, Counter);
+            if (board.herbivoreCount() <= 2)
+                endGame(true, Counter);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

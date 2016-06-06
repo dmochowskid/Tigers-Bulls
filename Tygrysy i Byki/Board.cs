@@ -32,9 +32,6 @@ namespace Tygrysy_i_Byki
         public const int BOARD_HIGHT = 5;
 
         public ObservableCollection<ObservableCollection<Field>> fields { get; private set; }
-        //private ImageSource predatorImage;
-        //public ImageSource herbivoreImage;
-        //private ImageSource emptyImage;
         public Point activeAnimal; // Jezeli aktywnt to wskazuje na pozycje na planszy
                                    // w.p.p. (-1, x)
         private Stack<Point> activeFields;
@@ -87,7 +84,7 @@ namespace Tygrysy_i_Byki
                 {
                     if (j.fieldType == FieldType.Herbivore)
                         j.Image = settingsWindow.HerbivoreImage;
-                    else if(j.fieldType == FieldType.Predator)
+                    else if (j.fieldType == FieldType.Predator)
                         j.Image = settingsWindow.PredatorImage;
                 }
         }
