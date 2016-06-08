@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tygrysy_i_Byki"
         mc:Ignorable="d" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
-        
+        Closing="Window_Closing"
         Title="Ustawienia" Height="512" Width="300">
     <Window.Background>
         <ImageBrush ImageSource="obrazki/background.jpg" Stretch="UniformToFill" />

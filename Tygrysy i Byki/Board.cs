@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -87,7 +88,7 @@ namespace Tygrysy_i_Byki
             return herbivoresPosition;
         }
 
-        internal void refreshImages()
+        public void refreshImages()
         {
             foreach (var i in fields)
                 foreach (var j in i)

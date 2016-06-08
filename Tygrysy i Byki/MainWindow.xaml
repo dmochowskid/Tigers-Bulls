@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tygrysy_i_Byki"
-        mc:Ignorable="d" Closed="MainWindow_closed" SizeChanged="Window_SizeChanged"
+        mc:Ignorable="d" Closing="Window_Closing" SizeChanged="Window_SizeChanged"
         Title="Tygrysy i Byki" Height="700" Width="1050">
     <Window.Background>
         <ImageBrush ImageSource="obrazki/background.jpg" Stretch="UniformToFill" />

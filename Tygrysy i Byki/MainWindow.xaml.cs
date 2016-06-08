@@ -52,11 +52,7 @@ namespace Tygrysy_i_Byki
         {
             settingsWindow.ShowDialog();
             game.board.refreshImages();
-        }
-
-        private void MainWindow_closed(object sender, EventArgs e)
-        {
-            settingsWindow.Close();
+            game.refreshMinImage();
         }
         
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -65,6 +61,11 @@ namespace Tygrysy_i_Byki
             
             if(canvas.ActualHeight > 40)
                 gPoints.Height = Math.Min(150, canvas.ActualHeight - Canvas.GetTop(gPoints));
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            settingsWindow.Close();
         }
     }
 }

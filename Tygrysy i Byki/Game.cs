@@ -58,8 +58,13 @@ namespace Tygrysy_i_Byki
         private void changeRound()
         {
             predatorRound = !predatorRound;
-            minCurrentPlayer.DataContext = (predatorRound) ? settingWindow.PredatorImage : settingWindow.HerbivoreImage;
+            refreshMinImage();
             Counter = counter + 1;
+        }
+
+        public void refreshMinImage()
+        {
+            minCurrentPlayer.DataContext = (predatorRound) ? settingWindow.PredatorImage : settingWindow.HerbivoreImage;
         }
 
         public void action(int x, int y)

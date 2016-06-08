@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -21,6 +22,8 @@ namespace Tygrysy_i_Byki
     /// </summary>
     public partial class SettingsWindow : Window, INotifyPropertyChanged
     {
+        const string fileName = "settings.dat";
+
         private SettingsWindow()
         {
             InitializeComponent();
@@ -30,16 +33,14 @@ namespace Tygrysy_i_Byki
             currentPredatorIndex = 10; // Lion
             currentHerbivoreIndex = 2; // Bull
 
+            loadSettings();
+
             PredatorImage = new BitmapImage(new Uri(getFilePath(currentPredatorIndex, true), UriKind.Relative));
             HerbivoreImage = new BitmapImage(new Uri(getFilePath(currentHerbivoreIndex, false), UriKind.Relative));
             EmptyImage = new BitmapImage(new Uri("obrazki/emptyImage.png", UriKind.Relative));
 
             iHerbivore.DataContext = this;
             iPredator.DataContext = this;
-
-            rbPlayerVsComp.IsChecked = true;
-
-            withComputer = true;
         }
 
         private List<string> predatorNames;
@@ -185,8 +186,14 @@ namespace Tygrysy_i_Byki
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            e.Cancel = true;
-            Hide();
+            if(Visibility != Visibility.Hidden && Visibility != Visibility.Collapsed)
+            {
+                e.Cancel = true;
+                Hide();
+            }
+            else
+                saveSettings();
+
         }
 
         private void rbPlayerVsComp_Checked(object sender, RoutedEventArgs e)
@@ -197,6 +204,35 @@ namespace Tygrysy_i_Byki
         private void rbPlayerVsPlayer_Checked(object sender, RoutedEventArgs e)
         {
             withComputer = false;
+        }
+
+        private void loadSettings()
+        {
+            if (File.Exists(fileName))
+            {
+                using (BinaryReader reader = new BinaryReader(File.Open(fileName, FileMode.Open)))
+                {
+                    currentHerbivoreIndex = reader.ReadInt32();
+                    currentPredatorIndex = reader.ReadInt32();
+                    rbPlayerVsComp.IsChecked = reader.ReadBoolean();
+                    rbPlayerVsPlayer.IsChecked = !rbPlayerVsComp.IsChecked;
+                }
+            }
+            else
+            {
+                rbPlayerVsComp.IsChecked = true;
+                withComputer = true;
+            }
+        }
+
+        private void saveSettings()
+        {
+            using (BinaryWriter writer = new BinaryWriter(File.Open(fileName, FileMode.Create)))
+            {
+                writer.Write(currentHerbivoreIndex);
+                writer.Write(currentPredatorIndex);
+                writer.Write((bool)rbPlayerVsComp.IsChecked);
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
